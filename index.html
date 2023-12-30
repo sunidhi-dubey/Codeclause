@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EditEase - Creative Text Editor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div>
+        <!-- <div id="left">
+            <button>Open</button>
+            <br>
+            <button>Save</button>
+            <br>
+            <button>Settings</button>
+            <br>
+            <button>Account</button>
+        </div>
+        <div id="center">
+            <div id="bg">
+                <textarea name="text" id="101" cols="30" rows="10" placeholder="Enter your text here"></textarea>
+            </div>
+        </div>
+        <div id="right">
+            <button>Bold</button>
+            <button>Italic</button>
+            <button>Underline</button>
+            <button>Left</button>
+            <button>Center</button>
+            <button>Right</button>
+        </div> -->
+
+        <div id="formatting-buttons">
+            <button onclick="execCmd('bold')">Bold</button>
+            <button onclick="execCmd('italic')">Italic</button>
+            <button onclick="execCmd('underline')">Underline</button>
+            <button onclick="execCmd('justifyLeft')">Align Left</button>
+            <button onclick="execCmd('justifyCenter')">Align Center</button>
+            <button onclick="execCmd('justifyRight')">Align Right</button>
+            <label for="text-color">Text Color:</label>
+            <input type="color" id="text-color" onchange="execCmdWithArg('foreColor', this.value)">
+            <label for="font-family">Font Family:</label>
+            <select id="font-family" onchange="execCmdWithArg('fontName', this.value)">
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Courier New">Courier New</option>
+            </select>
+        </div>
+    
+        <div id="editor" contenteditable="true" oninput="updateOutput()"></div>
+    
+        <div>
+            <button onclick="saveFile()">Save</button>
+            <input type="file" id="file-input" onchange="openFile()">
+        </div>
+    </div>
+
+    <script>
+        function execCmd(command) {
+            document.execCommand(command, false, null);
+        }
+
+        function execCmdWithArg(command, arg) {
+            document.execCommand(command, false, arg);
+        }
+
+        function updateOutput() {
+            // Handle real-time updates or additional functionality
+        }
+
+        function saveFile() {
+            const textToSave = document.getElementById('editor').innerHTML;
+            const blob = new Blob([textToSave], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'document.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        function openFile() {
+            const input = document.getElementById('file-input');
+            const file = input.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const content = e.target.result;
+                document.getElementById('editor').innerHTML = content;
+            };
+
+            reader.readAsText(file);
+        }
+    </script>
+</body>
+</html>

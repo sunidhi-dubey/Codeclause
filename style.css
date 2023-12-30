@@ -1,0 +1,15 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+#editor {
+    width: 80%;
+    margin: 20px auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    min-height: 300px;
+}
+
+#formatting-buttons {
+    margin-bottom: 10px;
+}
